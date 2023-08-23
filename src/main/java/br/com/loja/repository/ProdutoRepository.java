@@ -1,5 +1,6 @@
-package br.com.loja;
+package br.com.loja.repository;
 
+import br.com.loja.produto.ProdutoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;

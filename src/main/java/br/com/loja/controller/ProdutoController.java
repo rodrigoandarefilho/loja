@@ -1,5 +1,10 @@
-package br.com.loja;
+package br.com.loja.controller;
 
+import br.com.loja.produto.ProdutoDTO;
+import br.com.loja.produto.ProdutoEntity;
+import br.com.loja.produto.ProdutoModel;
+import br.com.loja.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +23,7 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrarProduto(@RequestBody ProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
         var produtoEntity = new ProdutoEntity(produtoDTO);
         produtoRepository.save(produtoEntity);
         var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produtoEntity.getId()).toUri();
