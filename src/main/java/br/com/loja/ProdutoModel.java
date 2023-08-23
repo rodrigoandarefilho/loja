@@ -1,12 +1,10 @@
 package br.com.loja;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
 public class ProdutoModel {
         private BigDecimal id;
         private String nome;

@@ -19,16 +19,16 @@ public class ProdutoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrarProduto(@RequestBody ProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
-        var produto = new ProdutoEntity(produtoDTO);
-        produtoRepository.save(produto);
-        var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ProdutoModel(produto));
+        var produtoEntity = new ProdutoEntity(produtoDTO);
+        produtoRepository.save(produtoEntity);
+        var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produtoEntity.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ProdutoModel(produtoEntity));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity buscarProdutoPorId(@PathVariable BigDecimal id) {
-        var produto = produtoRepository.getReferenceById(id);
-        return ResponseEntity.ok(new ProdutoModel(produto));
+        var produtoEntity = produtoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new ProdutoModel(produtoEntity));
     }
 
     @GetMapping
