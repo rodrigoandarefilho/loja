@@ -5,12 +5,12 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record ProdutoDTO(
-        @NotBlank(message = "{nome.obrigatorio}")
+public record AlterarProdutoDTO(
+        @NotNull
+        BigDecimal id,
         String nome,
-        @NotNull(message = "{preco_unitario.obrigatorio}")
         BigDecimal precoUnitario,
-        @NotBlank(message = "{categoria.obrigatorio}")
         String categoria,
-        String descricao) {
+        String descricao
+) {
 }

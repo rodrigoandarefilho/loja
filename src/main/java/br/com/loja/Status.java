@@ -1,15 +1,13 @@
 package br.com.loja;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum Status {
-    Ativo("A"),
-    Inativo("I");
+    ATIVO("A"),
+    INATIVO("I");
 
     private String descricao;
-
-    Status(String descricao) {
-        this.descricao = descricao;
-    }
 }

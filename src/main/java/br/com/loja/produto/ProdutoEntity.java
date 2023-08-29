@@ -32,13 +32,32 @@ public class ProdutoEntity {
     @Column(name = "data_atualizacao")
     private LocalDate dataAtualizacao;
 
-    public ProdutoEntity(ProdutoDTO produtoDTO) {
-        this.nome = produtoDTO.nome();
-        this.precoUnitario = produtoDTO.precoUnitario();
-        this.categoria = produtoDTO.categoria();
-        this.status = Status.Ativo.getDescricao();
-        this.descricao = produtoDTO.descricao();
+    public ProdutoEntity(CadastrarProdutoDTO cadastrarProdutoDTO) {
+        this.nome = cadastrarProdutoDTO.nome();
+        this.precoUnitario = cadastrarProdutoDTO.precoUnitario();
+        this.categoria = cadastrarProdutoDTO.categoria();
+        this.status = Status.ATIVO.getDescricao();
+        this.descricao = cadastrarProdutoDTO.descricao();
         this.dataCadastro = LocalDate.now();
         this.dataAtualizacao = LocalDate.now();
+    }
+
+    public void alterar(AlterarProdutoDTO alterarProdutoDTO) {
+        if (alterarProdutoDTO.nome() != null) {
+            this.nome = alterarProdutoDTO.nome();
+        }
+        if (alterarProdutoDTO.precoUnitario() != null) {
+            this.precoUnitario = alterarProdutoDTO.precoUnitario();
+        }
+        if (alterarProdutoDTO.categoria() != null) {
+            this.categoria = alterarProdutoDTO.categoria();
+        }
+        if (alterarProdutoDTO.descricao() != null) {
+            this.descricao = alterarProdutoDTO.descricao();
+        }
+    }
+
+    public void deletar() {
+        this.status = Status.INATIVO.getDescricao();
     }
 }

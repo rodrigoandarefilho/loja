@@ -1,6 +1,8 @@
 package br.com.loja.controller;
 
-import br.com.loja.produto.ProdutoDTO;
+import br.com.loja.Status;
+import br.com.loja.produto.AlterarProdutoDTO;
+import br.com.loja.produto.CadastrarProdutoDTO;
 import br.com.loja.produto.ProdutoEntity;
 import br.com.loja.produto.ProdutoModel;
 import br.com.loja.repository.ProdutoRepository;
@@ -23,8 +25,8 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
-        var produtoEntity = new ProdutoEntity(produtoDTO);
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid CadastrarProdutoDTO cadastrarProdutoDTO, UriComponentsBuilder uriBuilder) {
+        var produtoEntity = new ProdutoEntity(cadastrarProdutoDTO);
         produtoRepository.save(produtoEntity);
         var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produtoEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(new ProdutoModel(produtoEntity));
@@ -41,5 +43,21 @@ public class ProdutoController {
         var listaDeProdutos = produtoRepository.findAll().stream().map(ProdutoModel::new).toList();
         return ResponseEntity.ok(listaDeProdutos);
 
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity alterarProduto(@RequestBody @Valid AlterarProdutoDTO alterarProdutoDTO) {
+        var produtoEntity = produtoRepository.getReferenceById(alterarProdutoDTO.id());
+        produtoEntity.alterar(alterarProdutoDTO);
+        return ResponseEntity.ok(new ProdutoModel(produtoEntity));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarProduto(@PathVariable BigDecimal id) {
+        var produtoEntity = produtoRepository.getReferenceById(id);
+        produtoEntity.deletar();
+        return ResponseEntity.ok(new ProdutoModel(produtoEntity));
     }
 }

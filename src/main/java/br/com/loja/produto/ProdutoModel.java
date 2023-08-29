@@ -1,6 +1,5 @@
 package br.com.loja.produto;
 
-import br.com.loja.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
@@ -25,7 +24,7 @@ public class ProdutoModel {
         this.nome = produtoEntity.getNome();
         this.precoUnitario = produtoEntity.getPrecoUnitario();
         this.categoria = produtoEntity.getCategoria();
-        this.status = produtoEntity.getStatus().equalsIgnoreCase("A") ? String.valueOf(Status.Ativo) : String.valueOf(Status.Inativo);
+        this.status = produtoEntity.getStatus();
         this.descricao = produtoEntity.getDescricao();
         this.dataCadastro = produtoEntity.getDataCadastro();
         this.dataAtualizacao = produtoEntity.getDataAtualizacao();
